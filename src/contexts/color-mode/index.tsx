@@ -43,6 +43,20 @@ export const ColorModeContextProvider: React.FC<PropsWithChildren> = ({
 
   const { darkAlgorithm, defaultAlgorithm } = theme;
 
+  const flupTheme = {
+    token: {
+      colorPrimary: "#2ECC8F",
+      colorBgBase: "#F0EFF4",
+      colorBgContainer: "#FFFFFF",
+      colorBorder: "#E8E8E8",
+      colorText: "#1A1A1A",
+      colorTextSecondary: "#9B9B9B",
+      borderRadius: 8,
+      fontFamily: "'DM Sans', sans-serif",
+    },
+    algorithm: mode === "light" ? defaultAlgorithm : darkAlgorithm,
+  };
+
   return (
     <ColorModeContext.Provider
       value={{
@@ -50,13 +64,7 @@ export const ColorModeContextProvider: React.FC<PropsWithChildren> = ({
         mode,
       }}
     >
-      <ConfigProvider
-        // you can change the theme colors here. example: ...RefineThemes.Magenta,
-        theme={{
-          ...RefineThemes.Blue,
-          algorithm: mode === "light" ? defaultAlgorithm : darkAlgorithm,
-        }}
-      >
+      <ConfigProvider theme={flupTheme}>
         {children}
       </ConfigProvider>
     </ColorModeContext.Provider>
