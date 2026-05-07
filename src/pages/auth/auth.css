@@ -1,0 +1,392 @@
+/* Auth Page Styles */
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #C8DDE0 0%, #D8E9EC 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-container {
+  width: 900px;
+  height: 580px;
+  background: #FFFFFF;
+  border-radius: 24px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+/* Left Panel - Static */
+.auth-left-panel {
+  width: 50%;
+  background: #EAF2F4;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.flup-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 60px;
+}
+
+.logo-circle {
+  width: 20px;
+  height: 20px;
+  background: #1DB89A;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-dot {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+}
+
+.logo-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0D4A3E;
+}
+
+.auth-headline {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.headline-line-1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #0D4A3E;
+  line-height: 1.1;
+}
+
+.headline-line-2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #0D4A3E;
+  line-height: 1.1;
+}
+
+.headline-line-2 .highlight {
+  color: #1DB89A;
+}
+
+.auth-illustration {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 320px;
+}
+
+.illustration-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Right Panel - Animated */
+.auth-right-panel {
+  width: 50%;
+  background: #FFFFFF;
+  position: relative;
+  perspective: 1200px;
+}
+
+.auth-form-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.auth-form-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Auth Header */
+.auth-header {
+  margin-bottom: 28px;
+}
+
+.forgot-password-icon {
+  width: 64px;
+  height: 64px;
+  background: #E0FAF4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  font-size: 24px;
+  color: #1DB89A;
+}
+
+.auth-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0D4A3E;
+  margin: 0 0 4px 0;
+}
+
+.auth-subtitle {
+  font-size: 13px;
+  font-weight: 400;
+  color: #9BAAAB;
+  margin: 0;
+}
+
+/* Form Fields */
+.auth-form-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field {
+  margin-bottom: 20px;
+}
+
+.field-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #9BAAAB;
+  margin-bottom: 6px;
+}
+
+.field-input {
+  width: 100%;
+  height: 48px;
+  border: 1.5px solid #D8E0E2;
+  border-radius: 10px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #0D4A3E;
+  background: #FFFFFF;
+  transition: all 200ms ease;
+  box-sizing: border-box;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: #1DB89A;
+  background: #F0FAF7;
+}
+
+.field-input.error {
+  border-color: #E24B4A;
+}
+
+.field-input::placeholder {
+  color: #9BAAAB;
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #9BAAAB;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle:hover {
+  color: #1DB89A;
+}
+
+.field-error {
+  display: block;
+  font-size: 12px;
+  color: #E24B4A;
+  margin-top: 4px;
+}
+
+.forgot-password-link {
+  background: none;
+  border: none;
+  color: #0D4A3E;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 8px;
+  text-align: right;
+  width: 100%;
+}
+
+.forgot-password-link:hover {
+  color: #1DB89A;
+}
+
+/* Buttons */
+.auth-button {
+  width: 100%;
+  height: 52px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 200ms ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: 24px;
+}
+
+.auth-button.primary {
+  background: #1DB89A;
+  color: white;
+}
+
+.auth-button.primary:hover:not(:disabled) {
+  background: #18A88C;
+}
+
+.auth-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.button-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Footer */
+.auth-footer {
+  margin-bottom: 20px;
+}
+
+.footer-text {
+  font-size: 13px;
+  color: #0D4A3E;
+  font-weight: 500;
+  text-align: center;
+  display: block;
+}
+
+.footer-link {
+  background: none;
+  border: none;
+  color: #1DB89A;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.footer-link:hover {
+  text-decoration: none;
+}
+
+.back-to-login {
+  background: none;
+  border: none;
+  color: #1DB89A;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+}
+
+.back-to-login:hover {
+  color: #18A88C;
+}
+
+.auth-copyright {
+  font-size: 12px;
+  color: #9BAAAB;
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .auth-container {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    flex-direction: column;
+  }
+  
+  .auth-left-panel,
+  .auth-right-panel {
+    width: 100%;
+  }
+  
+  .auth-left-panel {
+    height: 40%;
+    padding: 24px;
+  }
+  
+  .auth-right-panel {
+    height: 60%;
+  }
+  
+  .auth-form-wrapper {
+    padding: 24px;
+  }
+  
+  .auth-illustration {
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .headline-line-1,
+  .headline-line-2 {
+    font-size: 24px;
+  }
+}

@@ -1,15 +1,18 @@
 import React from "react";
 
-const countries = [
-  { name: "Poland", percent: 19 },
-  { name: "Austria", percent: 15 },
-  { name: "Spain", percent: 13 },
-  { name: "Romania", percent: 12 },
-  { name: "France", percent: 11 },
-  { name: "Italy", percent: 11 },
-  { name: "Germany", percent: 10 },
-  { name: "Ukraine", percent: 9 },
+const products = [
+  { name: "Time", percent: 19, color: "#8B5CF6" },
+  { name: "Morpheus", percent: 15, color: "#3B82F6" },
+  { name: "Measure", percent: 13, color: "#14B8A6" },
+  { name: "Earth", percent: 12, color: "#F97316" },
+  { name: "Aurora", percent: 11, color: "#EF9F27" },
+  { name: "Terra", percent: 10, color: "#EC4899" },
+  { name: "Nimbus", percent: 9, color: "#9CA3AF" },
+  { name: "Atlas", percent: 8, color: "#2ECC8F" },
 ];
+
+// Present top products ordered by income (descending)
+const sortedProducts = [...products].sort((a, b) => b.percent - a.percent);
 
 export const CountriesTable: React.FC = () => {
   return (
@@ -23,13 +26,13 @@ export const CountriesTable: React.FC = () => {
       }}
     >
       <div style={{ fontSize: 16, fontWeight: 600, color: "#0D3D2B", marginBottom: 16 }}>
-        Sales by countries
+        Sales by income
       </div>
       <div style={{ display: "flex", gap: 16 }}>
         <div style={{ flex: 1 }}>
-          {countries.map((country) => (
+          {sortedProducts.map((product) => (
             <div
-              key={country.name}
+              key={product.name}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -48,15 +51,15 @@ export const CountriesTable: React.FC = () => {
             >
               <div
                 style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  backgroundColor: "#2ECC8F",
+                  width: 10,
+                  height: 10,
+                  borderRadius: 2,
+                  backgroundColor: product.color,
                   flexShrink: 0,
                 }}
               />
-              <span style={{ flex: 1 }}>{country.name}</span>
-              <span style={{ fontWeight: 600, color: "#0D3D2B" }}>{country.percent}%</span>
+              <span style={{ flex: 1 }}>{product.name}</span>
+              <span style={{ fontWeight: 600, color: "#0D3D2B" }}>{product.percent}%</span>
             </div>
           ))}
         </div>

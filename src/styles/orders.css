@@ -1,0 +1,26 @@
+.flup-orders-table .ant-table-thead>tr>th {
+    background-color: #FAFAFA !important;
+    border-bottom: 1px solid #E8E8E8 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #9B9B9B !important;
+    padding: 12px 16px !important;
+}
+
+.flup-orders-table .ant-table-tbody>tr>td {
+    border-bottom: 1px solid #E8E8E8 !important;
+    padding: 12px 16px !important;
+    font-size: 13px !important;
+}
+
+.flup-orders-table .ant-table-tbody>tr:hover>td {
+    background-color: #F8F9FA !important;
+}
+
+.flup-orders-table .ant-table {
+    border-radius: 12px !important;
+}
+
+.flup-orders-table .ant-table-container {
+    border-radius: 12px !important;
+}

@@ -88,7 +88,10 @@ export const MarketplacePage: React.FC = () => {
           <Button
             type="primary"
             style={{ backgroundColor: "#2ECC8F", borderColor: "#2ECC8F" }}
-            onClick={() => setShowFilters(!showFilters)}
+            onClick={() => {
+              // Open add product drawer instead of navigation
+              console.log("Add product");
+            }}
           >
             Add Product
           </Button>

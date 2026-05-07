@@ -29,6 +29,7 @@ import { DiscountsPage } from "./pages/discounts";
 import { LedgerPage } from "./pages/ledger";
 import { TaxesPage } from "./pages/taxes";
 import { SettingsPage } from "./pages/settings";
+import { AuthPage } from "./pages/auth/AuthPage";
 
 const API_URL = "https://flowing-mammal-24.hasura.app/v1/graphql";
 const WS_URL = "ws://flowing-mammal-24.hasura.app/v1/graphql";
@@ -129,10 +130,12 @@ function App() {
                     <Route path="/ledger" element={<LedgerPage />} />
                     <Route path="/taxes" element={<TaxesPage />} />
                     <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/" element={<DashboardPage />} />
                   </Route>
-                  <Route path="/login" element={<div>Login</div>} />
-                  <Route path="/register" element={<div>Register</div>} />
-                  <Route path="/forgot-password" element={<div>Forgot Password</div>} />
+                  <Route path="/login" element={<AuthPage />} />
+                  <Route path="/register" element={<AuthPage />} />
+                  <Route path="/forgot-password" element={<AuthPage />} />
+                  <Route path="/auth" element={<AuthPage />} />
                 </Routes>
                 <RefineKbar />
                 <UnsavedChangesNotifier />

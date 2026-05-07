@@ -1,5 +1,5 @@
-import React from "react";
-import { Checkbox, Button } from "antd";
+import React, { useState } from "react";
+import { Checkbox, Button, Modal, Form, Input } from "antd";
 import { MoreOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { StatusDot } from "../../components/common/StatusDot";
 
@@ -19,6 +19,27 @@ interface ProductRowProps {
 }
 
 export const ProductRow: React.FC<ProductRowProps> = ({ product, showDivider, onDelete }) => {
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [form] = Form.useForm();
+
+  const handleEdit = () => {
+    form.setFieldsValue({
+      display_name: product.display_name,
+      price: product.price,
+      material: product.material,
+      dimensions: product.dimensions,
+      category: product.category,
+    });
+    setEditModalOpen(true);
+  };
+
+  const handleSave = () => {
+    form.validateFields().then((values) => {
+      console.log("Saving product:", product.id, values);
+      setEditModalOpen(false);
+    });
+  };
+
   return (
     <div
       style={{
@@ -94,7 +115,7 @@ export const ProductRow: React.FC<ProductRowProps> = ({ product, showDivider, on
         <Button
           type="text"
           icon={<EditOutlined />}
-          onClick={() => window.location.href = `/marketplace/edit/${product.id}`}
+          onClick={handleEdit}
           style={{ width: 28, height: 28 }}
         />
         <Button
@@ -105,6 +126,36 @@ export const ProductRow: React.FC<ProductRowProps> = ({ product, showDivider, on
           style={{ width: 28, height: 28 }}
         />
       </div>
+
+      <Modal
+        title="Edit Product"
+        open={editModalOpen}
+        onCancel={() => setEditModalOpen(false)}
+        onOk={handleSave}
+        okText="Save"
+        cancelText="Cancel"
+        okButtonProps={{ style: { backgroundColor: "#2ECC8F", borderColor: "#2ECC8F" } }}
+        centered
+        width={480}
+      >
+        <Form form={form} layout="vertical" style={{ marginTop: 16 }}>
+          <Form.Item name="display_name" label="Display Name" rules={[{ required: true }]}>
+            <Input style={{ height: 40, borderRadius: 8 }} />
+          </Form.Item>
+          <Form.Item name="price" label="Price" rules={[{ required: true }]}>
+            <Input style={{ height: 40, borderRadius: 8 }} />
+          </Form.Item>
+          <Form.Item name="material" label="Material" rules={[{ required: true }]}>
+            <Input style={{ height: 40, borderRadius: 8 }} />
+          </Form.Item>
+          <Form.Item name="dimensions" label="Dimensions" rules={[{ required: true }]}>
+            <Input style={{ height: 40, borderRadius: 8 }} />
+          </Form.Item>
+          <Form.Item name="category" label="Category" rules={[{ required: true }]}>
+            <Input style={{ height: 40, borderRadius: 8 }} />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
 const data = [
   { name: "Living room", value: 25, color: "#8B5CF6" },
@@ -14,7 +14,10 @@ const data = [
   { name: "Outdoor", value: 2, color: "#EF4444" },
 ];
 
-const RADIAN = Math.PI / 180;
+// Ensure data is ordered descending by value so top-selling categories appear first
+const sortedData = [...data].sort((a, b) => b.value - a.value);
+
+// Removed custom slice labels — percentages are shown via Tooltip on hover
 
 export const CategoryDonut: React.FC = () => {
   return (
@@ -28,16 +31,16 @@ export const CategoryDonut: React.FC = () => {
       }}
     >
       <div style={{ fontSize: 16, fontWeight: 600, color: "#0D3D2B", marginBottom: 16 }}>
-        Sales by product category
+        Sales by popularity
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
         <div style={{ flex: 1 }}>
-          {data.map((item) => (
+          {sortedData.map((item) => (
             <div
               key={item.name}
               style={{
                 display: "grid",
-                gridTemplateColumns: "10px 1fr auto",
+                gridTemplateColumns: "10px 1fr",
                 alignItems: "center",
                 gap: 8,
                 marginBottom: 8,
@@ -54,23 +57,25 @@ export const CategoryDonut: React.FC = () => {
                 }}
               />
               <span>{item.name}</span>
-              <span style={{ color: "#9B9B9B" }}>— {item.value}%</span>
+              {/* percentage numbers removed from donut legend per design */}
             </div>
           ))}
         </div>
         <div style={{ width: 180, height: 180 }}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
+              <Tooltip formatter={(value: any, name: any) => [`${value}%`, name]} />
               <Pie
-                data={data}
+                data={sortedData}
                 cx="50%"
                 cy="50%"
                 innerRadius={50}
                 outerRadius={80}
                 dataKey="value"
                 strokeWidth={0}
+                labelLine={false}
               >
-                {data.map((entry, index) => (
+                {sortedData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>

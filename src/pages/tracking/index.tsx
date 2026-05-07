@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Tabs, message, Modal, Drawer } from "antd";
+import { Button, Input, message, Modal, Drawer } from "antd";
 import { SearchOutlined, SlidersOutlined, PlusOutlined } from "@ant-design/icons";
 import { TrackingCard } from "./TrackingCard";
 import { LiveBadge } from "../../components/common/LiveBadge";
@@ -61,6 +61,7 @@ export const TrackingPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [search, setSearch] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -87,27 +88,22 @@ export const TrackingPage: React.FC = () => {
     ];
   }
 
-  const { data, isLoading, refetch } = useList({
+  const { result, query } = useList({
     resource: "tracking",
     meta: {
       gqlQuery: GET_TRACKING,
       variables: { where: whereClause },
-    },
-    queryOptions: {
-      retry: false,
-      onError: () => {
-        // Silently fail - will use sample data
-      },
     },
   });
 
   const { mutate: deleteTracking } = useDelete();
 
   // Use API data if available, otherwise fall back to sample data
-  const apiDeliveries = data?.data || [];
-  const totalCount = data?.total || 0;
+  const apiDeliveries = result?.data || [];
+  const totalCount = result?.total || 0;
   const deliveries = apiDeliveries.length > 0 ? apiDeliveries : sampleDeliveries;
   const displayTotal = apiDeliveries.length > 0 ? totalCount : sampleDeliveries.length;
+  const isLoading = query.isLoading;
 
   const handleDelete = (id: string, trackingId: string) => {
     Modal.confirm({
@@ -122,7 +118,7 @@ export const TrackingPage: React.FC = () => {
           {
             onSuccess: () => {
               message.success("Tracking deleted successfully");
-              refetch?.();
+              query.refetch?.();
             },
             onError: () => message.error("Failed to delete tracking"),
           }
@@ -130,13 +126,6 @@ export const TrackingPage: React.FC = () => {
       },
     });
   };
-
-  const tabItems = [
-    { key: "all", label: `All ${displayTotal}` },
-    { key: "on-route", label: "On route" },
-    { key: "waiting", label: "Waiting" },
-    { key: "inactive", label: "Inactive" },
-  ];
 
   return (
     <div>
@@ -158,20 +147,76 @@ export const TrackingPage: React.FC = () => {
             type="primary"
             icon={<PlusOutlined />}
             style={{ backgroundColor: "#2ECC8F", borderColor: "#2ECC8F" }}
-            onClick={() => window.location.href = "/tracking/create"}
+            onClick={() => setDrawerOpen(true)}
           >
             Add new track
           </Button>
         </div>
       </div>
 
-      <Tabs
-        activeKey={activeTab}
-        onChange={setActiveTab}
-        items={tabItems}
-        style={{ marginBottom: 16 }}
-        tabBarStyle={{ marginBottom: 16 }}
-      />
+      {/* Custom Tab Pills */}
+      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+        <div
+          onClick={() => setActiveTab("all")}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 20,
+            cursor: "pointer",
+            fontSize: 13,
+            fontWeight: 500,
+            backgroundColor: activeTab === "all" ? "#2ECC8F" : "#F5F5F5",
+            color: activeTab === "all" ? "white" : "#1A1A1A",
+            transition: "all 0.2s",
+          }}
+        >
+          All 76
+        </div>
+        <div
+          onClick={() => setActiveTab("on-route")}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 20,
+            cursor: "pointer",
+            fontSize: 13,
+            fontWeight: 500,
+            backgroundColor: activeTab === "on-route" ? "#2ECC8F" : "#F5F5F5",
+            color: activeTab === "on-route" ? "white" : "#1A1A1A",
+            transition: "all 0.2s",
+          }}
+        >
+          On route 34
+        </div>
+        <div
+          onClick={() => setActiveTab("waiting")}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 20,
+            cursor: "pointer",
+            fontSize: 13,
+            fontWeight: 500,
+            backgroundColor: activeTab === "waiting" ? "#2ECC8F" : "#F5F5F5",
+            color: activeTab === "waiting" ? "white" : "#1A1A1A",
+            transition: "all 0.2s",
+          }}
+        >
+          Waiting 28
+        </div>
+        <div
+          onClick={() => setActiveTab("inactive")}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 20,
+            cursor: "pointer",
+            fontSize: 13,
+            fontWeight: 500,
+            backgroundColor: activeTab === "inactive" ? "#2ECC8F" : "#F5F5F5",
+            color: activeTab === "inactive" ? "white" : "#1A1A1A",
+            transition: "all 0.2s",
+          }}
+        >
+          Inactive 14
+        </div>
+      </div>
 
       <div style={{ display: "flex", gap: 16, marginBottom: 16 }}>
         <Input
@@ -181,8 +226,12 @@ export const TrackingPage: React.FC = () => {
           onChange={(e) => setSearch(e.target.value)}
           style={{ flex: 1, height: 40, borderRadius: 8 }}
         />
-        <Button icon={<SlidersOutlined />}>Filters</Button>
-        <Button>Time</Button>
+        <Button icon={<SlidersOutlined />} style={{ height: 40 }}>
+          Filters
+        </Button>
+        <Button style={{ height: 40 }}>
+          Time
+        </Button>
       </div>
 
       {isLoading ? (
@@ -204,6 +253,23 @@ export const TrackingPage: React.FC = () => {
           ))}
         </div>
       )}
+
+      {/* Add New Track Drawer */}
+      <Drawer
+        title="Add new track"
+        placement="right"
+        width={420}
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        styles={{
+          body: { padding: "16px 20px" },
+          header: { padding: "16px 20px", borderBottom: "1px solid #E8E8E8" },
+        }}
+      >
+        <div style={{ padding: 20, textAlign: "center", color: "#9B9B9B" }}>
+          Add new tracking form would go here
+        </div>
+      </Drawer>
     </div>
   );
 };

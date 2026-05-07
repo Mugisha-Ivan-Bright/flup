@@ -49,7 +49,10 @@ export const TrackingCard: React.FC<TrackingCardProps> = ({ delivery, onDelete }
           type="text"
           size="small"
           icon={<EditOutlined />}
-          onClick={() => window.location.href = `/tracking/edit/${delivery.id}`}
+          onClick={() => {
+            // Could open edit drawer here instead of navigation
+            console.log("Edit tracking:", delivery.id);
+          }}
         />
         <Button type="text" size="small" danger icon={<DeleteOutlined />} onClick={onDelete} />
       </div>
